@@ -1,1 +1,1 @@
-## trabalhando com jpa, hibernate e mysql
+## Trabalhando com jpa, hibernate e mysql

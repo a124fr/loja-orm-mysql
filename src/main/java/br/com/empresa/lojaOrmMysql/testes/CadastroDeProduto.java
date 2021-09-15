@@ -3,24 +3,35 @@ package br.com.empresa.lojaOrmMysql.testes;
 import java.math.BigDecimal;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
+import br.com.empresa.lojaOrmMysql.dao.ProdutoDAO;
+import br.com.empresa.lojaOrmMysql.modelo.Categoria;
 import br.com.empresa.lojaOrmMysql.modelo.Produto;
+import br.com.empresa.lojaOrmMysql.util.JPAUtil;
 
 public class CadastroDeProduto {
 
 	public static void main(String[] args) {
-		Produto celular = new Produto();		
-		celular.setNome("Xiaomi Redmi");
-		celular.setDescricao("muito legal");
-		celular.setPreco(new BigDecimal("800"));
+//		Produto celular = new Produto();		
+//		celular.setNome("Xiaomi Redmi");
+//		celular.setDescricao("muito legal");
+//		celular.setPreco(new BigDecimal("800"));
+//		
+//		EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja-orm-mysql");
+//		
+//		EntityManager em  = factory.createEntityManager();
+//		em.getTransaction().begin();
+//		em.persist(celular);
+//		em.getTransaction().commit();
+//		em.close();
 		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja-orm-mysql");
+		Produto celular = new Produto("Xiaomi Redmi", "muito legal", new BigDecimal("800"), Categoria.CELULARES);
 		
-		EntityManager em  = factory.createEntityManager();
+		EntityManager em  = JPAUtil.getEntityManager();
+		ProdutoDAO dao = new ProdutoDAO(em);
+		
 		em.getTransaction().begin();
-		em.persist(celular);
+		dao.cadastrar(celular);
 		em.getTransaction().commit();
 		em.close();
 
