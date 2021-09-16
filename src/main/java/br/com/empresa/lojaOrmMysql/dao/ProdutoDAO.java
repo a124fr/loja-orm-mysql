@@ -1,5 +1,6 @@
 package br.com.empresa.lojaOrmMysql.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -52,5 +53,11 @@ public class ProdutoDAO {
 		return em.createQuery("SELECT p FROM Produto p WHERE p.categoria.nome = :nome", Produto.class)
 				.setParameter("nome", nome)
 				.getResultList();
+	}
+	
+	public BigDecimal buscarPrecoDoProdutoComNome(String nome) {		
+		return em.createQuery("SELECT p.preco FROM Produto p WHERE p.nome = :nome", BigDecimal.class)
+				.setParameter("nome", nome) 
+				.getSingleResult(); // carrega um único resultado de uma consulta
 	}
 }
