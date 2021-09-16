@@ -35,4 +35,22 @@ public class ProdutoDAO {
 		return em.createQuery("SELECT p FROM Produto p", Produto.class)
 				.getResultList();
 	}
+	
+	public List<Produto> buscarPorNome(String nome) {		
+		return em.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome", Produto.class)
+				.setParameter("nome", nome) // Named parameters
+				.getResultList();
+	}
+	
+	public List<Produto> buscarPorNome2(String nome) {		
+		return em.createQuery("SELECT p FROM Produto p WHERE p.nome = ?1", Produto.class)
+				.setParameter(1, nome) // parametro posicional
+				.getResultList();
+	}
+	
+	public List<Produto> buscarPorNomeDaCategoria(String nome) {		
+		return em.createQuery("SELECT p FROM Produto p WHERE p.categoria.nome = :nome", Produto.class)
+				.setParameter("nome", nome)
+				.getResultList();
+	}
 }
