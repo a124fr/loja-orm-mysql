@@ -31,11 +31,14 @@ public class CadastroDePedido {
 
 		em.getTransaction().begin();
 		
-		PedidoDAO pedidoDAO = new PedidoDAO(em);
-				
+		PedidoDAO pedidoDAO = new PedidoDAO(em);			
 		pedidoDAO.cadastrar(pedido);
-
+		
 		em.getTransaction().commit();
+		
+		BigDecimal totalVendido = pedidoDAO.valorTotalVendido();
+		System.out.println("VALOR TOTAL: " + totalVendido);
+		
 		em.close();
 	}
 
