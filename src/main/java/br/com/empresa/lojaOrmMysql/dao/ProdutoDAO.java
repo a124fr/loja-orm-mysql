@@ -1,5 +1,7 @@
 package br.com.empresa.lojaOrmMysql.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.empresa.lojaOrmMysql.modelo.Produto;
@@ -23,5 +25,14 @@ public class ProdutoDAO {
 	public void remover(Produto produto) {
 		produto = this.em.merge(produto);
 		this.em.remove(produto);
+	}
+
+	public Produto buscarPorId(long id) {		
+		return this.em.find(Produto.class, id);
+	}
+	
+	public List<Produto> buscarTodos() {		
+		return em.createQuery("SELECT p FROM Produto p", Produto.class)
+				.getResultList();
 	}
 }
