@@ -20,13 +20,19 @@ public class PerfomanceConsultas {
 	public static void main(String[] args) {
 		popularBancoDeDados();
 		EntityManager em = JPAUtil.getEntityManager();
+		PedidoDAO pedidoDAO = new PedidoDAO(em);
+//		Pedido pedido = em.find(Pedido.class, 1l);
 		
-		Pedido pedido = em.find(Pedido.class, 1l);
-		System.out.println(pedido.getData());
-		System.out.println(pedido.getItens().size());
+		Pedido pedido = pedidoDAO.buscarPedidoComCliente(1l); // Testando Query Planejada usando JOIN FETCH.		
+		em.close(); 
 		
+//		para caso onde não tenhos o controle do EntityManager. O carremento Lazy pode não funcionar. 
+//		Então é usando uery Planejada com JOIN FETCH.
 		
-		em.close();
+//		System.out.println(pedido.getData());
+//		System.out.println(pedido.getItens().size());
+		System.out.println(pedido.getCliente().getNome());
+		
 	}
 	
 	private static void popularBancoDeDados() {
