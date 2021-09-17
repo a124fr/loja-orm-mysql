@@ -1,6 +1,8 @@
 package br.com.empresa.lojaOrmMysql.testes;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -38,6 +40,13 @@ public class CadastroDePedido {
 		
 		BigDecimal totalVendido = pedidoDAO.valorTotalVendido();
 		System.out.println("VALOR TOTAL: " + totalVendido);
+		
+		List<Object[]> relatoriodeVendas = pedidoDAO.relatoriodeVendas();
+		for (Object[] obj : relatoriodeVendas) {
+			System.out.println(obj[0]);
+			System.out.println(obj[1]);
+			System.out.println(obj[2]);
+		}
 		
 		em.close();
 	}

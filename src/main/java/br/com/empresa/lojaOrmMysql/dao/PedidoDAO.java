@@ -1,6 +1,7 @@
 package br.com.empresa.lojaOrmMysql.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -22,4 +23,24 @@ public class PedidoDAO {
 		return this.em.createQuery(jpql, BigDecimal.class)
 				.getSingleResult();
 	}
+	
+	public List<Object[]> relatoriodeVendas() {
+		String jpql = "SELECT produto.nome, SUM(item.quantidade), MAX(pedido.data) "
+				+ "FROM Pedido pedido "
+				+ "JOIN pedido.itens item "
+				+ "JOIN item.produto produto GROUP BY produto.nome "
+				+ "ORDER BY SUM(item.quantidade) DESC";
+		return this.em.createQuery(jpql, Object[].class)
+				.getResultList();
+	}
+	
+//	public List<Object[]> relatoriodeVendas() {
+//		String jpql = "SELECT produto.nome, SUM(item.quantidade), MAX(pedido.data) "
+//				+ "FROM Pedido pedido "
+//				+ "JOIN pedido.itens item "
+//				+ "JOIN item.produto produto GROUP BY produto.nome "
+//				+ "ORDER BY item.quantidade DESC";
+//		return this.em.createQuery(jpql, Object[].class)
+//				.getResultList();
+//	}
 }
