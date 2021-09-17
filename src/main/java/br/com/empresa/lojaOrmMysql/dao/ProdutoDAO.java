@@ -1,9 +1,11 @@
 package br.com.empresa.lojaOrmMysql.dao;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import br.com.empresa.lojaOrmMysql.modelo.Produto;
 
@@ -65,5 +67,37 @@ public class ProdutoDAO {
 		return em.createQuery("SELECT p.preco FROM Produto p WHERE p.nome = :nome", BigDecimal.class)
 				.setParameter("nome", nome) 
 				.getSingleResult(); // carrega um único resultado de uma consulta
+	}
+	
+	public List<Produto> buscarPorParametros(String nome, BigDecimal preco, LocalDate dataCadastro) {
+		String jpql = "SELECT p FROM Produto p WHERE 1=1 ";				
+			
+			if (nome != null && !nome.trim().equals("")) {
+				jpql = " AND p.nome = :nome";
+			}
+			
+			if(preco != null) {
+				jpql = " AND p.preco = :preco";
+			}
+			
+			if (dataCadastro != null) {
+				jpql = " AND p.dataCadastro = :dataCadastro";
+			}
+			
+			TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
+			
+			if (nome != null && !nome.trim().equals("")) {
+				query.setParameter("nome", nome);
+			}
+			
+			if(preco != null) {
+				query.setParameter("preoc", preco);
+			}
+			
+			if (dataCadastro != null) {
+				query.setParameter("dataCadastro", dataCadastro);
+			}
+			
+			return query.getResultList();
 	}
 }
