@@ -1,5 +1,6 @@
 package br.com.empresa.lojaOrmMysql.modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -8,6 +9,8 @@ import javax.persistence.Table;
 public class Livro extends Produto {
 
 	private String autor;
+	
+	@Column(name = "numero_paginas")
 	private Integer numeroDePaginas;
 
 	public Livro() {
