@@ -55,6 +55,12 @@ public class ProdutoDAO {
 				.getResultList();
 	}
 	
+	public List<Produto> buscarPorNomeDaCategoria2(String nome) {		
+		return em.createNamedQuery("Produto.produtosPorCategoria",Produto.class)
+				.setParameter("nome", nome)
+				.getResultList();
+	}
+	
 	public BigDecimal buscarPrecoDoProdutoComNome(String nome) {		
 		return em.createQuery("SELECT p.preco FROM Produto p WHERE p.nome = :nome", BigDecimal.class)
 				.setParameter("nome", nome) 
